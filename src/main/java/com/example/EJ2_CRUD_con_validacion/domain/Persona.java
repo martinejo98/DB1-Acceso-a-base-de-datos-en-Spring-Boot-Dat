@@ -13,7 +13,7 @@ public class Persona {
     int id_persona;
 
     @Column
-    private String user;
+    private String usuario;
 
     @Column
     private String password;

@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/persona")
 public class PersonaController {
@@ -24,17 +26,19 @@ public class PersonaController {
         return personaDTO;
     }
 
-   /* @GetMapping("/getPersonaID/{id}")
-    public String getPersonaByID(@PathVariable int id){
-        return "Datos de la persona: " + personaService.getPersonaByID(id);
+    @GetMapping("/getPersonaID/{id}")
+    public PersonaDTO getPersonaByID(@PathVariable int id) throws Exception {
+        return personaService.getPersonaByID(id);
     }
 
+
     @GetMapping("/getPersonaName/{name}")
-    public String getPersonaByName(@PathVariable String name){
-        if(personaService.getPersonaByName().getName().equals(name)){
-            return "Datos de la persona: "+ personaService.getPersonaByName();
-        }else{
-            return "No hemos encontrado a "+name;
-        }
-    }*/
+    public List<PersonaDTO> getPersonaByName(@PathVariable String name){
+        return personaService.getPersonaByName(name);
+    }
+
+    @GetMapping("/getAll")
+    public List <PersonaDTO> getAll(){
+        return personaService.getAll();
+    }
 }
