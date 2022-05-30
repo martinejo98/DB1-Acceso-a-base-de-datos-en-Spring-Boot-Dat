@@ -20,10 +20,9 @@ public class PersonaController {
     private ModelMapper modelMapper;
 
     @PostMapping("/addPersona")
-    public PersonaDTO addPersona(@RequestBody PersonaDTO personaDTO){
-        Persona persona = personaService.addPersona(modelMapper.map(personaDTO, Persona.class));  //ModelMapper hace que pueda convertir de una clase a otra
-        personaDTO.setId_persona(persona.getId_persona());
-        return personaDTO;
+    public String addPersona(@RequestBody Persona persona) throws Exception {
+        personaService.addPersona(persona);
+        return "Persona añadida";
     }
 
     @GetMapping("/getPersonaID/{id}")

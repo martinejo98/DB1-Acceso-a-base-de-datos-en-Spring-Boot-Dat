@@ -20,9 +20,37 @@ public class PersonaService {
     @Autowired
     ModelMapper modelMapper;
 
-    public Persona addPersona(Persona persona){
-        personaRepository.save(persona);
-        return persona;
+    public Persona addPersona(Persona persona) throws Exception {
+        if(persona.getUsuario() != null && persona.getUsuario().length() <= 10 && persona.getUsuario().length() >= 6){
+            if(persona.getName() != null){
+                if (persona.getSurname() != null) {
+                    if (persona.getPassword() != null) {
+                        if (persona.getCompany_email() != null) {
+                            if(persona.getPersonal_email() != null){
+                                if (persona.getCity() != null) {
+                                    personaRepository.save(persona);
+                                    return persona;
+                                } else {
+                                    throw new Exception("El campo email personal no puede estar vacío");
+                                }
+                            }else{
+                                throw new Exception("El campo email personal no puede estar vacío");
+                            }
+                        } else {
+                            throw new Exception("El campo email corporativo no puede estar vacío");
+                        }
+                    }else{
+                        throw new Exception("El campo contraseña no puede estar vacío");
+                    }
+                }else{
+                    throw new Exception("El campo apellido no puede estar vacío");
+                }
+            }else{
+                throw new Exception("El campo nombre no puede estar vacío");
+            }
+        }else{
+            throw new Exception("El campo usuario debe tener entre 6 y 10 caracteres");
+        }
     }
 
     public PersonaDTO getPersonaByID(Integer id) throws Exception {
