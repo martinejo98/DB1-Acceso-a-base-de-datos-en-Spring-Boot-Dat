@@ -84,9 +84,34 @@ public class PersonaService {
         return listaPersonas;
     }
 
-    /**
-     * Este metodo lo que hace esc convertirme todas las persona que encuentra el findAll() en personasDTO
-     * y me lo añade a la lista de personasDTO que he creado y la retorna
-     */
+  /**
+   * Este metodo lo que hace esc convertirme todas las persona que encuentra el findAll() en
+   * personasDTO y me lo añade a la lista de personasDTO que he creado y la retorna
+   */
+  public PersonaDTO updatePersona(int id, Persona persona) {
+    Optional<Persona> personEntity = personaRepository.findById(id);
+    if (personEntity.isPresent()) {
+      persona.setId_persona(id);
+      persona.setUsuario(Optional.ofNullable(persona.getUsuario()).orElse(personEntity.get().getUsuario()));
+      persona.setPassword(Optional.ofNullable(persona.getPassword()).orElse(personEntity.get().getPassword()));
+      persona.setName(Optional.ofNullable(persona.getName()).orElse(personEntity.get().getName()));
+      persona.setSurname(Optional.ofNullable(persona.getSurname()).orElse(personEntity.get().getSurname()));
+      persona.setCompany_email(Optional.ofNullable(persona.getCompany_email()).orElse(personEntity.get().getCompany_email()));
+      persona.setPersonal_email(Optional.ofNullable(persona.getPersonal_email()).orElse(personEntity.get().getPersonal_email()));
+      persona.setCity(Optional.ofNullable(persona.getCity()).orElse(personEntity.get().getCity()));
+      persona.setImagen_url(Optional.ofNullable(persona.getImagen_url()).orElse(personEntity.get().getImagen_url()));
+      persona.setActive(personEntity.get().getActive());
+      persona.setCreated_date(personEntity.get().getCreated_date());
+      personaRepository.saveAndFlush(modelMapper.map(persona, Persona.class));
+      PersonaDTO personDTO = modelMapper.map(persona, PersonaDTO.class);
+      return personDTO;
+        } else {
+            return null;
+        }
+    }
 
+    public String deletePersona(int id){
+        personaRepository.deleteById(id);
+        return "Persona eliminada";
+    }
 }

@@ -40,4 +40,16 @@ public class PersonaController {
     public List <PersonaDTO> getAll(){
         return personaService.getAll();
     }
+
+    @PutMapping("/update/{id}")
+    public String addPersona(@RequestBody Persona persona, @PathVariable int id){
+        personaService.updatePersona(id, persona);
+        return "Persona actualziada";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deletePersona(@PathVariable int id){
+        personaService.deletePersona(id);
+        return "Persona eliminada";
+    }
 }

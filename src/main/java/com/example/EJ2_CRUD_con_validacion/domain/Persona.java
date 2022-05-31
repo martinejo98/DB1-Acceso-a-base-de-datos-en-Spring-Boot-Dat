@@ -1,6 +1,7 @@
 package com.example.EJ2_CRUD_con_validacion.domain;
 
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 
@@ -43,4 +44,11 @@ public class Persona {
     private String imagen_url;
     @Column
     private String termination_date;
+
+    public boolean getActive(){
+        return active;
+    }
+    /**
+     * Por algún motivo no me crea el getActive el @DATA
+     * */
 }
